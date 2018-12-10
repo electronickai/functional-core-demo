@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <title th:text="'User List'"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:each="player: ${players}" th:text="${player}">List player names</p>
+<form action="/" method="get">
+    <button type="submit">Zurück zur Hauptseite...</button>
+</form>
+</body>
+</html>
