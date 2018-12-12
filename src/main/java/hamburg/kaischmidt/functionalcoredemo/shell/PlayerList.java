@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.shell.persistence;
+package hamburg.kaischmidt.functionalcoredemo.shell;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +10,11 @@ public class PlayerList {
 
     private Set<String> players = new HashSet<>();
 
-    public Set<String> getPlayers() {
+    Set<String> getPlayers() {
         return players;
     }
 
-    public void addNewPlayer(String playerName) {
+    void addNewPlayer(String playerName) {
         players.add(playerName);
     }
 }

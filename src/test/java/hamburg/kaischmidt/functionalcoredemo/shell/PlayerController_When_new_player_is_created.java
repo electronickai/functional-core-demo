@@ -1,6 +1,5 @@
-package hamburg.kaischmidt.functionalcoredemo.player.shell;
+package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.shell.persistence.PlayerList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

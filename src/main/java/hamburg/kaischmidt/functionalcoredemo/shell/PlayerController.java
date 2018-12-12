@@ -1,7 +1,6 @@
-package hamburg.kaischmidt.functionalcoredemo.player.shell;
+package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.player.core.PlayerSorter;
-import hamburg.kaischmidt.functionalcoredemo.shell.persistence.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.PlayerSorter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

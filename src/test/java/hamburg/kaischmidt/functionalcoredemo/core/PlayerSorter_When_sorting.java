@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.player.core;
+package hamburg.kaischmidt.functionalcoredemo.core;
 
 import org.junit.Test;
 
