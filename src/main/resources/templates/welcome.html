@@ -10,7 +10,8 @@
     Spielername: <input type="text" name="Spielername">
     <button type="submit">Spieler Erstellen</button>
 </form>
-<div th:if="${not #strings.isEmpty(newPlayer)}" th:text="'Spieler ' + ${newPlayer} + ' erstellt'"></div>
+<div th:if="${not #strings.isEmpty(newPlayer)}"
+     th:text="'Spieler ' + ${newPlayer} + ' ' + ${playerCreateMessage}"></div>
 <form action="/player-list" method="get">
     <button type="submit">Spielerliste...</button>
 </form>

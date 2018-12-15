@@ -1,5 +1,6 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
+import hamburg.kaischmidt.functionalcoredemo.core.PlayerList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class PlayerController_When_new_player_is_created {
     private PlayerList playerList;
 
     @Test
-    public void Then_call_is_redirected_And_event_is_created() throws Exception {
+    public void Then_call_is_redirected_And_player_is_created() throws Exception {
 
         //Arrange
         String newPlayer = "TestUser";
@@ -42,7 +43,7 @@ public class PlayerController_When_new_player_is_created {
 
         //Assert
         assertThat(playerList.getPlayers().size()).isEqualTo(1);
-        assertThat(playerList.getPlayers().iterator().next()).isEqualTo(newPlayer);
+        assertThat(playerList.getPlayers().iterator().next().getName()).isEqualTo(newPlayer);
 
         mockMvc.perform(get("/player-list"))
                 .andDo(print())

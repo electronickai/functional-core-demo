@@ -27,4 +27,15 @@ public class WelcomeController_When_called {
                 .andExpect(content().string(containsString("Hallo, ")));
     }
 
+    @Test
+    public void If_player_and_create_message_are_passed_Then_they_are_shown() throws Exception {
+        final String createMessage = "erstellt";
+        final String testUser = "TestUser";
+
+        mockMvc.perform(get("/?playerCreateMessage=" + createMessage + "&newPlayer=" + testUser)).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(createMessage)))
+                .andExpect(content().string(containsString(testUser)));
+    }
+
 }
