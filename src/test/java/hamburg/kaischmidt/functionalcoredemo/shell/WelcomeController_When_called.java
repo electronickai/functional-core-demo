@@ -28,14 +28,12 @@ public class WelcomeController_When_called {
     }
 
     @Test
-    public void If_player_and_create_message_are_passed_Then_they_are_shown() throws Exception {
-        final String createMessage = "erstellt";
-        final String testUser = "TestUser";
+    public void If_create_message_is_passed_Then_it_is_shown() throws Exception {
+        final String createMessage = "Spieler Testuser erstellt";
 
-        mockMvc.perform(get("/?playerCreateMessage=" + createMessage + "&newPlayer=" + testUser)).andDo(print())
+        mockMvc.perform(get("/?playerCreateMessage=" + createMessage)).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(createMessage)))
-                .andExpect(content().string(containsString(testUser)));
+                .andExpect(content().string(containsString(createMessage)));
     }
 
 }

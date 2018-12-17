@@ -1,6 +1,5 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.core.PlayerList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -26,15 +26,19 @@ public class PlayerController_When_new_player_is_created {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private PlayerList playerList;
-
     @Test
-    public void Then_call_is_redirected_And_player_is_created() throws Exception {
+    public void Then_call_is_redirected_And_player_is_shown_in_list() throws Exception {
 
         //Arrange
         String newPlayer = "TestUser";
-        assertThat(playerList.getPlayers().size()).isEqualTo(0);
+        ApplicationState state = ApplicationState.getInstance();
+        assertThat(state.getPlayerList().getPlayers().size()).isEqualTo(0);
+
+        MvcResult result = mockMvc.perform(get("/player-list"))
+                .andDo(print())
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsString().contains(newPlayer)).isFalse();
 
         //Act
         mockMvc.perform(post("/player").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + newPlayer).accept(APPLICATION_FORM_URLENCODED_VALUE))
@@ -42,9 +46,6 @@ public class PlayerController_When_new_player_is_created {
                 .andExpect(status().is3xxRedirection());
 
         //Assert
-        assertThat(playerList.getPlayers().size()).isEqualTo(1);
-        assertThat(playerList.getPlayers().iterator().next().getName()).isEqualTo(newPlayer);
-
         mockMvc.perform(get("/player-list"))
                 .andDo(print())
                 .andExpect(status().isOk())

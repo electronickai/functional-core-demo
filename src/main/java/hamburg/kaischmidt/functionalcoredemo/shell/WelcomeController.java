@@ -13,7 +13,7 @@ public class WelcomeController {
     private String CUSTOMER = "";
 
     @GetMapping("/")
-    public String welcome(@ModelAttribute("newPlayer") String newPlayer, @ModelAttribute("playerCreateMessage") String playerCreatedMessage, Model model) {
+    public String welcome(@ModelAttribute("playerCreateMessage") String playerCreatedMessage, Model model) {
         model.addAttribute("customer", CUSTOMER);
         return "welcome";
     }
