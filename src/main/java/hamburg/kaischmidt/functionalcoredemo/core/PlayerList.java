@@ -5,11 +5,11 @@ import java.util.*;
 public final class PlayerList {
 
     private final Set<Player> players;
-    private final String playerCreatedMessage;
+    private final String lastOperationMessage;
 
-    private PlayerList(Set<Player> players, String playerCreatedMessage) {
+    private PlayerList(Set<Player> players, String lastOperationMessage) {
         this.players = players;
-        this.playerCreatedMessage = playerCreatedMessage;
+        this.lastOperationMessage = lastOperationMessage;
     }
 
     public static PlayerList initializePlayerList() {
@@ -20,8 +20,16 @@ public final class PlayerList {
         if (playerExists(newPlayerName)) {
             return new PlayerList(currentList.getPlayers(), String.format("Spieler %s existiert bereits", newPlayerName));
         }
-        Set<Player> newPlayers = addToCurrentList(newPlayerName);
+        Set<Player> newPlayers = addToCurrentList(Player.createNewPlayer(newPlayerName));
         return new PlayerList(newPlayers, String.format("Spieler %s erstellt", newPlayerName));
+    }
+
+    public PlayerList addKudosToPlayer(PlayerList currentList, String playerName) {
+        if (!playerExists(playerName)) {
+            return new PlayerList(currentList.getPlayers(), String.format("Spieler %s ist nicht vorhanden", playerName));
+        }
+        Set<Player> newPlayers = addKudosToPlayer(playerName);
+        return new PlayerList(newPlayers, String.format("Kudos zu Spieler %s hinzugefügt", playerName));
     }
 
     public Set<Player> getPlayers() {
@@ -34,17 +42,35 @@ public final class PlayerList {
         return players;
     }
 
-    public String getPlayerCreatedMessage() {
-        return playerCreatedMessage;
+    public String getLastOperationMessage() {
+        return lastOperationMessage;
     }
 
     private boolean playerExists(String name) {
-        return players.contains(new Player(name));
+        return players.stream().anyMatch(p -> p.getName().equals(name));
     }
 
-    private Set<Player> addToCurrentList(String newPlayerName) {
+    private Set<Player> addKudosToPlayer(String playerName) {
+        Player newPlayer = null;
+        for (Player player : players) {
+            if (player.getName().equals(playerName)) {
+                newPlayer = player.addKudos(player);
+            }
+        }
+        return replaceInCurrentList(newPlayer);
+    }
+
+    private Set<Player> addToCurrentList(Player newPlayer) {
         Set<Player> modifiableSet = new HashSet<>(players);
-        modifiableSet.add(new Player(newPlayerName));
+        modifiableSet.add(newPlayer);
         return Collections.unmodifiableSet(modifiableSet);
     }
+
+    private Set<Player> replaceInCurrentList(Player player) {
+        Set<Player> modifiableSet = new HashSet<>(players);
+        modifiableSet.removeIf(p -> p.getName().equals(player.getName()));
+        modifiableSet.add(player);
+        return Collections.unmodifiableSet(modifiableSet);
+    }
+
 }

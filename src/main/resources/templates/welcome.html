@@ -7,7 +7,7 @@
 <body>
 <p th:text="'Hallo, ' + ${customer} + '!'"></p>
 <form action="/player" method="post">
-    Spielername: <input type="text" name="Spielername">
+    <input title="Spielername:" type="text" name="Spielername">
     <button type="submit">Spieler Erstellen</button>
 </form>
 <div th:text="${playerCreateMessage}"></div>

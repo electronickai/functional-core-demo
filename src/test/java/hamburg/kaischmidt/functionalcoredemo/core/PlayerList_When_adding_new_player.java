@@ -19,7 +19,7 @@ public class PlayerList_When_adding_new_player {
         players = players.addNewPlayer(players, userName);
 
         //Assert
-        assertThat(players.getPlayerCreatedMessage()).isEqualTo(String.format("Spieler %s erstellt", userName));
+        assertThat(players.getLastOperationMessage()).isEqualTo(String.format("Spieler %s erstellt", userName));
         assertThat(players.getPlayers().size()).isEqualTo(1);
         assertThat(players.getPlayers().iterator().next().getName()).isEqualTo(userName);
 
@@ -39,7 +39,7 @@ public class PlayerList_When_adding_new_player {
         players = players.addNewPlayer(players, userName);
 
         //Assert
-        assertThat(players.getPlayerCreatedMessage()).isEqualTo(String.format("Spieler %s existiert bereits", userName));
+        assertThat(players.getLastOperationMessage()).isEqualTo(String.format("Spieler %s existiert bereits", userName));
         assertThat(players.getPlayers().size()).isEqualTo(1);
         assertThat(players.getPlayers().iterator().next().getName()).isEqualTo(userName);
 

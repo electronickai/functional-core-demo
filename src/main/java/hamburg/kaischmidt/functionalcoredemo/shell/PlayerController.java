@@ -25,11 +25,21 @@ public class PlayerController {
     @PostMapping("/player")
     public RedirectView createPlayer(@RequestParam(value = "Spielername") String playerName, RedirectAttributes attributes) {
         addNewPlayer(playerName);
-        attributes.addAttribute("playerCreateMessage", getPlayerList().getPlayerCreatedMessage());
+        attributes.addAttribute("playerCreateMessage", getPlayerList().getLastOperationMessage());
         return new RedirectView("/");
     }
 
-    private synchronized void addNewPlayer(@RequestParam("Spielername") String playerName) {
+    @PostMapping("player/addKudos")
+    public RedirectView addKudos(@RequestParam(value = "Spielername") String playerName, RedirectAttributes attributes) {
+        addKudosToPlayer(playerName);
+        return new RedirectView("/player-list");
+    }
+
+    private void addKudosToPlayer(String playerName) {
+        ApplicationState.getInstance().setPlayerList(getPlayerList().addKudosToPlayer(getPlayerList(), playerName));
+    }
+
+    private synchronized void addNewPlayer(String playerName) {
         ApplicationState.getInstance().setPlayerList(getPlayerList().addNewPlayer(getPlayerList(), playerName));
     }
 

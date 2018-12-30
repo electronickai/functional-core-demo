@@ -5,13 +5,27 @@ import java.util.Objects;
 public final class Player implements Comparable<Player> {
 
     private final String name;
+    private final int kudos;
 
-    Player(String name) {
+    private Player(String name, int kudos) {
         this.name = name;
+        this.kudos = kudos;
+    }
+
+    static Player createNewPlayer(String name) {
+        return new Player(name, 0);
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getKudos() {
+        return kudos;
+    }
+
+    Player addKudos(Player player) {
+        return new Player(player.name, player.kudos + 1);
     }
 
     @Override
@@ -36,5 +50,4 @@ public final class Player implements Comparable<Player> {
     public int compareTo(Player other) {
         return this.name.compareTo(other.name);
     }
-
 }
