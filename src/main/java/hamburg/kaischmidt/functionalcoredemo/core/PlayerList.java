@@ -26,7 +26,7 @@ public final class PlayerList {
 
     public PlayerList addKudosToPlayer(PlayerList currentList, String playerName) {
         if (!playerExists(playerName)) {
-            return new PlayerList(currentList.getPlayers(), String.format("Spieler %s ist nicht vorhanden", playerName));
+            return new PlayerList(currentList.getPlayers(), String.format("Keine Kudos hinzugefügt. Spieler %s ist nicht vorhanden", playerName));
         }
         Set<Player> newPlayers = addKudosToPlayer(playerName);
         return new PlayerList(newPlayers, String.format("Kudos zu Spieler %s hinzugefügt", playerName));
