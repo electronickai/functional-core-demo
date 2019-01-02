@@ -1,6 +1,7 @@
 package hamburg.kaischmidt.functionalcoredemo.core;
 
 import java.util.*;
+import java.util.function.Function;
 
 public final class PlayerList {
 
@@ -14,6 +15,20 @@ public final class PlayerList {
 
     public static PlayerList initializePlayerList() {
         return new PlayerList(Set.of(), "Keine Spieler vorhanden");
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public List<Player> getSortedPlayerNames() {
+        List<Player> players = new ArrayList<>(getPlayers());
+        Collections.sort(players);
+        return players;
+    }
+
+    public String getLastOperationMessage() {
+        return lastOperationMessage;
     }
 
     public PlayerList addNewPlayer(PlayerList currentList, String newPlayerName) {
@@ -32,18 +47,12 @@ public final class PlayerList {
         return new PlayerList(newPlayers, String.format("Kudos zu Spieler %s hinzugefügt", playerName));
     }
 
-    public Set<Player> getPlayers() {
-        return players;
-    }
-
-    public List<Player> getSortedPlayerNames() {
-        List<Player> players = new ArrayList<>(getPlayers());
-        Collections.sort(players);
-        return players;
-    }
-
-    public String getLastOperationMessage() {
-        return lastOperationMessage;
+    public PlayerList togglePremium(PlayerList currentList, String playerName) {
+        if (!playerExists(playerName)) {
+            return new PlayerList(currentList.getPlayers(), String.format("Premiumstatus unverändert. Spieler %s ist nicht vorhanden", playerName));
+        }
+        Set<Player> newPlayers = togglePremium(playerName);
+        return new PlayerList(newPlayers, String.format("Premiumstatus für Spieler %s geändert", playerName));
     }
 
     private boolean playerExists(String name) {
@@ -51,10 +60,18 @@ public final class PlayerList {
     }
 
     private Set<Player> addKudosToPlayer(String playerName) {
+        return applyFunctionToPlayer(playerName, Player::addKudos);
+    }
+
+    private Set<Player> togglePremium(String playerName) {
+        return applyFunctionToPlayer(playerName, Player::togglePremium);
+    }
+
+    private Set<Player> applyFunctionToPlayer(String playerName, Function<Player, Player> function) {
         Player newPlayer = null;
         for (Player player : players) {
             if (player.getName().equals(playerName)) {
-                newPlayer = player.addKudos(player);
+                newPlayer = function.apply(player);
             }
         }
         return replaceInCurrentList(newPlayer);

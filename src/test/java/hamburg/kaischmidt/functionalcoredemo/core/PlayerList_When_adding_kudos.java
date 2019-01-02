@@ -16,7 +16,9 @@ public class PlayerList_When_adding_kudos {
         final String secondUser = SECOND_USER;
         PlayerList players = PlayerList.initializePlayerList();
         players = players.addNewPlayer(players, firstUser);
+        players = players.togglePremium(players, firstUser);
         players = players.addNewPlayer(players, secondUser);
+        players = players.togglePremium(players, secondUser);
 
         //Act
         players = players.addKudosToPlayer(players, firstUser);
@@ -34,6 +36,21 @@ public class PlayerList_When_adding_kudos {
                     assertThat(player.getKudos()).isEqualTo(2);
             }
         }
+    }
+
+    @Test
+    public void If_player_is_not_a_premium_member_Then_playerlist_stays_the_same() {
+        //Arrange
+        PlayerList players = PlayerList.initializePlayerList();
+        players = players.addNewPlayer(players, FIRST_USER);
+
+        //Act
+        players = players.addKudosToPlayer(players, FIRST_USER);
+
+        //Assert
+        assertThat(players.getPlayers().size()).isEqualTo(1);
+        assertThat(players.getPlayers().iterator().next().getName()).isEqualTo("firstUser");
+        assertThat(players.getPlayers().iterator().next().getKudos()).isEqualTo(0);
     }
 
     @Test

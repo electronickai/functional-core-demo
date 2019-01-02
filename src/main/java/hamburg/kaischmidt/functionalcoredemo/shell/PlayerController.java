@@ -35,8 +35,18 @@ public class PlayerController {
         return new RedirectView("/player-list");
     }
 
+    @PostMapping("/player/togglePremium")
+    public RedirectView togglePremium(@RequestParam(value = "Spielername") String playerName, RedirectAttributes attributes) {
+        togglePremium(playerName);
+        return new RedirectView("/player-list");
+    }
+
     private void addKudosToPlayer(String playerName) {
         ApplicationState.getInstance().setPlayerList(getPlayerList().addKudosToPlayer(getPlayerList(), playerName));
+    }
+
+    private void togglePremium(String playerName) {
+        ApplicationState.getInstance().setPlayerList(getPlayerList().togglePremium(getPlayerList(), playerName));
     }
 
     private synchronized void addNewPlayer(String playerName) {

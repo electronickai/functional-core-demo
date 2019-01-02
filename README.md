@@ -74,6 +74,9 @@ Tests within the `shell` are Integration Tests - checking the connectivity of th
 ### Side effects
 Its within the own definition of placing some edge cases of functionality within the `core` although they are not side effect free. An example that may be quite easy to understand is logging. strictly speaking logging is a side effect (putting information on stdout). So, the ideal way would be to pass all the log messages back to the imperative `shell`. However, these side effects usually don't affect your application, may also hold a lot of information (timestamp, correlation id, ...) and probably you wouldn't write tests for proper logging. So there may be some rare cases, where it is up to the developer team to decide how strict you are.
 
+### Referential Transparency / Exceptions and Exception Handling
+https://stackoverflow.com/questions/10703232/why-is-the-raising-of-an-exception-a-side-effect
+
 ### Shell or Core?
 Sometimes you may find it hard to define that a specific logic is `core` or `shell` code. In the project we startet to put all the domain logic into the `core`. This is definitely alright.
 However sometimes logic is needed that doesn't really belong to the business domain. The rule of thumb that we used over time is not only to check against whether it is domain logic but to check whether the logic has side effects.

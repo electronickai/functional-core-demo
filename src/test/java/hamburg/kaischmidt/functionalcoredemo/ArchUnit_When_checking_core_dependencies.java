@@ -28,7 +28,7 @@ public class ArchUnit_When_checking_core_dependencies {
     @ArchTest
     public static final ArchRule Then_core_only_depends_on_whitelisted_packages =
             classes().that().resideInAPackage("..core..")
-                    .should().onlyDependOnClassesThat().resideInAnyPackage("..core..", "java.lang", "java.util", "java.util.stream");
+                    .should().onlyDependOnClassesThat().resideInAnyPackage("..core..", "java.lang", "java.util", "java.util.stream", "java.util.function");
 
     /**
      * ...there may still be classes with side effects - like java.lang.System:

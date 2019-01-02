@@ -6,26 +6,39 @@ public final class Player implements Comparable<Player> {
 
     private final String name;
     private final int kudos;
+    private final boolean premiumMember;
 
-    private Player(String name, int kudos) {
+    private Player(String name, int kudos, boolean premiumMember) {
         this.name = name;
         this.kudos = kudos;
+        this.premiumMember = premiumMember;
     }
 
     static Player createNewPlayer(String name) {
-        return new Player(name, 0);
+        return new Player(name, 0, false);
     }
 
-    public String getName() {
+    String getName() {
         return name;
+    }
+
+    public boolean isPremiumMember() {
+        return premiumMember;
     }
 
     public int getKudos() {
         return kudos;
     }
 
-    Player addKudos(Player player) {
-        return new Player(player.name, player.kudos + 1);
+    static Player addKudos(Player player) {
+        if (!player.premiumMember) {
+            return player;
+        }
+        return new Player(player.name, player.kudos + 1, true);
+    }
+
+    static Player togglePremium(Player player) {
+        return new Player(player.name, player.kudos, !player.premiumMember);
     }
 
     @Override

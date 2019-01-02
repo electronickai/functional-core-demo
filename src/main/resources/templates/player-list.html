@@ -5,10 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form th:each="player: ${players}" action="/player/addKudos" method="post">
-    <input title="Name" th:value="${player}" name="Spielername" readonly/>
-    <input title="Kudos" th:value="${player.getKudos()}" readonly/>
-    <button type="submit">Kudos vergeben</button>
+<form th:each="player: ${players}">
+    <input title="Name:" th:value="${player}" name="Spielername" readonly/>
+    <input title="Kudos:" th:value="${player.getKudos()}" readonly/>
+    <button type="submit" formaction="/player/addKudos" formmethod="post">Kudos vergeben</button>
+    <input title="Premium:" th:value="${player.isPremiumMember()}" readonly/>
+    <button type="submit" formaction="/player/togglePremium" formmethod="post">Premiumstatus ändern</button>
 </form>
 <form action="/" method="get">
     <button type="submit">Zurück zur Hauptseite...</button>
