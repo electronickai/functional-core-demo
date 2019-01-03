@@ -24,7 +24,7 @@ Gary Bernhardt combines some characteristics of object oriented programming with
 
 `FauxO` means that a class may contain both, data and code. However, compared to object orientation, all parameters into the code and the return values have to be immutable.
 
-An example of `FauxO` within this project is the class `PlayerList`. It contains state (e.g. a list of players) and code (it is possible to add a new player). However the `PlayerList` that is returned is a new instance - The PlayerList itself is immutable. The method to add a player is still a `pure function`.
+An example of `FauxO` within this project is the class `PlayerList`. It contains state (e.g. a list of players) and code (it is possible to add a new player). However the `PlayerList` that is returned is a new instance - The PlayerList itself is immutable.
 
 ### Readability of "Core Code"
 

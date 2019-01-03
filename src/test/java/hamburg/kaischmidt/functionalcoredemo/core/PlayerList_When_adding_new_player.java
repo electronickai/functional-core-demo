@@ -16,7 +16,7 @@ public class PlayerList_When_adding_new_player {
         assertThat(players.getPlayers().size()).isEqualTo(0);
 
         //Act
-        players = players.addNewPlayer(players, userName);
+        players = players.addNewPlayer(userName);
 
         //Assert
         assertThat(players.getLastOperationMessage()).isEqualTo(String.format("Spieler %s erstellt", userName));
@@ -32,11 +32,11 @@ public class PlayerList_When_adding_new_player {
         final String userName = "TestUser";
 
         PlayerList players = PlayerList.initializePlayerList();
-        players = players.addNewPlayer(players, userName);
+        players = players.addNewPlayer(userName);
         assertThat(players.getPlayers().size()).isEqualTo(1);
 
         //Act
-        players = players.addNewPlayer(players, userName);
+        players = players.addNewPlayer(userName);
 
         //Assert
         assertThat(players.getLastOperationMessage()).isEqualTo(String.format("Spieler %s existiert bereits", userName));

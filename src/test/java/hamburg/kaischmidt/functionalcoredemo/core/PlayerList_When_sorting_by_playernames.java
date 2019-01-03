@@ -14,11 +14,11 @@ public class PlayerList_When_sorting_by_playernames {
         //Arrange
         PlayerList players = PlayerList.initializePlayerList();
         players = players
-                .addNewPlayer(players, "Cäsar")
-                .addNewPlayer(players, "Bertram")
-                .addNewPlayer(players, "Anton")
-                .addNewPlayer(players, "Xaver")
-                .addNewPlayer(players, "Benedikt");
+                .addNewPlayer("Cäsar")
+                .addNewPlayer("Bertram")
+                .addNewPlayer("Anton")
+                .addNewPlayer("Xaver")
+                .addNewPlayer("Benedikt");
 
         //Act
         List<Player> sortedPlayers = players.getSortedPlayerNames();

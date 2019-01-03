@@ -30,15 +30,15 @@ public final class Player implements Comparable<Player> {
         return kudos;
     }
 
-    static Player addKudos(Player player) {
-        if (!player.premiumMember) {
-            return player;
+    Player addKudos() {
+        if (!premiumMember) {
+            return this;
         }
-        return new Player(player.name, player.kudos + 1, true);
+        return new Player(name, kudos + 1, premiumMember);
     }
 
-    static Player togglePremium(Player player) {
-        return new Player(player.name, player.kudos, !player.premiumMember);
+    Player togglePremium() {
+        return new Player(name, kudos, !premiumMember);
     }
 
     @Override

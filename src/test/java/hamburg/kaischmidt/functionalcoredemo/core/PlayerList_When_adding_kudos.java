@@ -15,15 +15,14 @@ public class PlayerList_When_adding_kudos {
         final String firstUser = FIRST_USER;
         final String secondUser = SECOND_USER;
         PlayerList players = PlayerList.initializePlayerList();
-        players = players.addNewPlayer(players, firstUser);
-        players = players.togglePremium(players, firstUser);
-        players = players.addNewPlayer(players, secondUser);
-        players = players.togglePremium(players, secondUser);
+        players = players
+                .addNewPlayer(firstUser).addNewPlayer(secondUser)
+                .togglePremium(firstUser).togglePremium(secondUser);
 
         //Act
-        players = players.addKudosToPlayer(players, firstUser);
-        players = players.addKudosToPlayer(players, secondUser);
-        players = players.addKudosToPlayer(players, secondUser);
+        players = players
+                .addKudosToPlayer(firstUser)
+                .addKudosToPlayer(secondUser).addKudosToPlayer(secondUser);
 
         //Assert
         assertThat(players.getPlayers().size()).isEqualTo(2);
@@ -42,10 +41,10 @@ public class PlayerList_When_adding_kudos {
     public void If_player_is_not_a_premium_member_Then_playerlist_stays_the_same() {
         //Arrange
         PlayerList players = PlayerList.initializePlayerList();
-        players = players.addNewPlayer(players, FIRST_USER);
+        players = players.addNewPlayer(FIRST_USER);
 
         //Act
-        players = players.addKudosToPlayer(players, FIRST_USER);
+        players = players.addKudosToPlayer(FIRST_USER);
 
         //Assert
         assertThat(players.getPlayers().size()).isEqualTo(1);
@@ -57,10 +56,10 @@ public class PlayerList_When_adding_kudos {
     public void If_player_does_not_exist_Then_playerlist_stays_the_same() {
         //Arrange
         PlayerList players = PlayerList.initializePlayerList();
-        players = players.addNewPlayer(players, FIRST_USER);
+        players = players.addNewPlayer(FIRST_USER);
 
         //Act
-        players = players.addKudosToPlayer(players, SECOND_USER);
+        players = players.addKudosToPlayer(SECOND_USER);
 
         //Assert
         assertThat(players.getPlayers().size()).isEqualTo(1);
@@ -69,4 +68,3 @@ public class PlayerList_When_adding_kudos {
         assertThat(players.getLastOperationMessage()).isEqualTo("Keine Kudos hinzugefügt. Spieler " + SECOND_USER + " ist nicht vorhanden");
     }
 }
-

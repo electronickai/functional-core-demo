@@ -1,22 +1,12 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
 import hamburg.kaischmidt.functionalcoredemo.core.PlayerList;
+import org.springframework.stereotype.Component;
 
+@Component
 class ApplicationState {
 
-    private static final class ApplicationStateHolder {
-        static final ApplicationState INSTANCE = new ApplicationState();
-    }
-
-    private ApplicationState() {
-        playerList = PlayerList.initializePlayerList();
-    }
-
-    static ApplicationState getInstance() {
-        return ApplicationStateHolder.INSTANCE;
-    }
-
-    private PlayerList playerList;
+    private PlayerList playerList = PlayerList.initializePlayerList();
 
     PlayerList getPlayerList() {
         return playerList;
