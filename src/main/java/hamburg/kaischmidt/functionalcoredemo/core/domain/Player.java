@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.core;
+package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
 import java.util.Objects;
 
@@ -14,11 +14,11 @@ public final class Player implements Comparable<Player> {
         this.premiumMember = premiumMember;
     }
 
-    static Player createNewPlayer(String name) {
+    public static Player createNewPlayer(String name) {
         return new Player(name, 0, false);
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -30,14 +30,14 @@ public final class Player implements Comparable<Player> {
         return kudos;
     }
 
-    Player addKudos() {
+    public Player addKudos() {
         if (!premiumMember) {
             return this;
         }
         return new Player(name, kudos + 1, premiumMember);
     }
 
-    Player togglePremium() {
+    public Player togglePremium() {
         return new Player(name, kudos, !premiumMember);
     }
 

@@ -1,6 +1,6 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.core.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.domain.PlayerList;
 import org.springframework.stereotype.Component;
 
 @Component

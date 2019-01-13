@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.core;
+package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
 import org.junit.Test;
 

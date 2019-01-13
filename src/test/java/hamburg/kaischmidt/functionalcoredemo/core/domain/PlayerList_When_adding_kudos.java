@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.core;
+package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
 import org.junit.Test;
 
@@ -12,29 +12,20 @@ public class PlayerList_When_adding_kudos {
     @Test
     public void If_player_exist_Then_kudos_are_added() {
         //Arrange
-        final String firstUser = FIRST_USER;
-        final String secondUser = SECOND_USER;
         PlayerList players = PlayerList.initializePlayerList();
         players = players
-                .addNewPlayer(firstUser).addNewPlayer(secondUser)
-                .togglePremium(firstUser).togglePremium(secondUser);
+                .addNewPlayer(FIRST_USER).addNewPlayer(SECOND_USER)
+                .togglePremium(FIRST_USER).togglePremium(SECOND_USER);
 
         //Act
         players = players
-                .addKudosToPlayer(firstUser)
-                .addKudosToPlayer(secondUser).addKudosToPlayer(secondUser);
+                .addKudosToPlayer(FIRST_USER)
+                .addKudosToPlayer(SECOND_USER).addKudosToPlayer(SECOND_USER);
 
         //Assert
         assertThat(players.getPlayers().size()).isEqualTo(2);
-        for (Player player : players.getPlayers()) {
-            switch (player.getName()) {
-                case firstUser:
-                    assertThat(player.getKudos()).isEqualTo(1);
-                    break;
-                case secondUser:
-                    assertThat(player.getKudos()).isEqualTo(2);
-            }
-        }
+        assertThat(players.getPlayers().stream().filter(p -> p.getName().equals(FIRST_USER)).map(Player::getKudos)).containsExactly(1);
+        assertThat(players.getPlayers().stream().filter(p -> p.getName().equals(SECOND_USER)).map(Player::getKudos)).containsExactly(2);
     }
 
     @Test

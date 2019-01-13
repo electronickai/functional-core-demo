@@ -6,11 +6,14 @@
 </head>
 <body>
 <form th:each="player: ${players}">
-    <input title="Name:" th:value="${player}" name="Spielername" readonly/>
+    <input title="Name:" th:value="${player.getPlayerName()}" name="Spielername" readonly/>
+    <input title="Premium:" th:value="${player.getPremiumStatus()}" readonly/>
+    <button type="submit" formaction="/player/togglePremium" formmethod="post"
+            th:text="${player.getPremiumToggleButtonText()}"></button>
     <input title="Kudos:" th:value="${player.getKudos()}" readonly/>
-    <button type="submit" formaction="/player/addKudos" formmethod="post">Kudos vergeben</button>
-    <input title="Premium:" th:value="${player.isPremiumMember()}" readonly/>
-    <button type="submit" formaction="/player/togglePremium" formmethod="post">Premiumstatus ändern</button>
+    <button type="submit" formaction="/player/addKudos" formmethod="post" th:disabled="${!player.isAddKudosEnabled()}">
+        Kudos vergeben
+    </button>
 </form>
 <form action="/" method="get">
     <button type="submit">Zurück zur Hauptseite...</button>

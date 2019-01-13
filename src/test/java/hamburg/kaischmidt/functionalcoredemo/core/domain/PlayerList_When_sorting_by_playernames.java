@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.core;
+package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class PlayerList_When_sorting_by_playernames {
                 .addNewPlayer("Benedikt");
 
         //Act
-        List<Player> sortedPlayers = players.getSortedPlayerNames();
+        List<Player> sortedPlayers = players.getPlayersSortedByName();
 
         //Assert
         for (int i = 1; i < sortedPlayers.size(); i++) {

@@ -1,7 +1,8 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.core.Player;
-import hamburg.kaischmidt.functionalcoredemo.core.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.domain.Player;
+import hamburg.kaischmidt.functionalcoredemo.core.domain.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.presentation.PlayerRepresentation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,8 @@ public class PlayerController {
 
     @GetMapping("/player-list")
     public String showPlayerList(Model model) {
-        List<Player> players = getPlayerList().getSortedPlayerNames();
-        model.addAttribute("players", players);
+        List<Player> players = getPlayerList().getPlayersSortedByName();
+        model.addAttribute("players", PlayerRepresentation.listFrom(players));
         return "player-list";
     }
 
@@ -35,7 +36,7 @@ public class PlayerController {
         return new RedirectView("/");
     }
 
-    @PostMapping("player/addKudos")
+    @PostMapping("/player/addKudos")
     public RedirectView addKudos(@RequestParam(value = "Spielername") String playerName) {
         addKudosToPlayer(playerName);
         return new RedirectView("/player-list");

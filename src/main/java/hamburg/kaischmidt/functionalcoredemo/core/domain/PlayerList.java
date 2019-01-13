@@ -1,4 +1,4 @@
-package hamburg.kaischmidt.functionalcoredemo.core;
+package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
 import java.util.*;
 import java.util.function.Function;
@@ -18,11 +18,11 @@ public final class PlayerList {
         return new PlayerList(Set.of(), "Keine Spieler vorhanden");
     }
 
-    public Set<Player> getPlayers() {
+    Set<Player> getPlayers() {
         return players;
     }
 
-    public List<Player> getSortedPlayerNames() {
+    public List<Player> getPlayersSortedByName() {
         List<Player> players = new ArrayList<>(getPlayers());
         Collections.sort(players);
         return players;

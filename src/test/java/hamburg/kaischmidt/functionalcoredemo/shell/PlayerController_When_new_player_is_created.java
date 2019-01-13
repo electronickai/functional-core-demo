@@ -26,15 +26,11 @@ public class PlayerController_When_new_player_is_created {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ApplicationState applicationState;
-
     @Test
     public void Then_call_is_redirected_And_player_is_shown_in_list() throws Exception {
 
         //Arrange
         String newPlayer = "TestUser";
-        assertThat(applicationState.getPlayerList().getPlayers().size()).isEqualTo(0);
 
         MvcResult result = mockMvc.perform(get("/player-list"))
                 .andDo(print())
