@@ -27,7 +27,7 @@ public class PlayerController_When_premium_is_toggled {
 
     private static final String PREMIUM_STRING = "title=\"Premium:\" value=\"Premium\"";
     private static final String STANDARD_STRING = "title=\"Premium:\" value=\"Standard\"";
-    private static final String ADD_KUDOS_DISABLED = "formaction=\"/player/addKudos\" formmethod=\"post\" disabled=\"disabled\"";
+    private static final String ADD_KUDOS_DISABLED = "formaction=\"/player/addKudos\" formmethod=\"post\" class=\"btn btn-primary\" disabled=\"disabled\"";
 
 
     @Autowired
