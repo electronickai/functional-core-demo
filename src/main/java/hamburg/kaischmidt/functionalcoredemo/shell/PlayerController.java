@@ -3,9 +3,11 @@ package hamburg.kaischmidt.functionalcoredemo.shell;
 import hamburg.kaischmidt.functionalcoredemo.core.domain.Player;
 import hamburg.kaischmidt.functionalcoredemo.core.domain.PlayerList;
 import hamburg.kaischmidt.functionalcoredemo.core.presentation.PlayerRepresentation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,15 +18,19 @@ import java.util.List;
 @Controller
 public class PlayerController {
 
+    @Value("${demo.customer}")
+    private String CUSTOMER = "";
+
     private ApplicationState applicationState;
 
     PlayerController(ApplicationState applicationState) {
         this.applicationState = applicationState;
     }
 
-    @GetMapping("/player-list")
-    public String showPlayerList(Model model) {
+    @GetMapping("/")
+    public String showPlayerList(@ModelAttribute("playerCreateMessage") String playerCreatedMessage, Model model) {
         List<Player> players = getPlayerList().getPlayersSortedByName();
+        model.addAttribute("customer", CUSTOMER);
         model.addAttribute("players", PlayerRepresentation.listFrom(players));
         return "player-list";
     }
@@ -39,13 +45,13 @@ public class PlayerController {
     @PostMapping("/player/addKudos")
     public RedirectView addKudos(@RequestParam(value = "Spielername") String playerName) {
         addKudosToPlayer(playerName);
-        return new RedirectView("/player-list");
+        return new RedirectView("/");
     }
 
     @PostMapping("/player/togglePremium")
     public RedirectView togglePremium(@RequestParam(value = "Spielername") String playerName) {
         togglePremiumOfPlayer(playerName);
-        return new RedirectView("/player-list");
+        return new RedirectView("/");
     }
 
     private void addKudosToPlayer(String playerName) {

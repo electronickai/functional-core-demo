@@ -47,7 +47,7 @@ public class PlayerController_When_premium_is_toggled {
         mockMvc.perform(post("/player/togglePremium").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + TOGGLE_ONCE_PLAYER).accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Assert
-        String responseBody = mockMvc.perform(get("/player-list"))
+        String responseBody = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -67,7 +67,7 @@ public class PlayerController_When_premium_is_toggled {
         mockMvc.perform(post("/player/togglePremium").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + TOGGLE_TWICE_PLAYER).accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Assert
-        String responseBody = mockMvc.perform(get("/player-list"))
+        String responseBody = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 

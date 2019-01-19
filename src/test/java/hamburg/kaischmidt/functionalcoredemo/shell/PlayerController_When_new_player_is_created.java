@@ -32,7 +32,7 @@ public class PlayerController_When_new_player_is_created {
         //Arrange
         String newPlayer = "TestUser";
 
-        MvcResult result = mockMvc.perform(get("/player-list"))
+        MvcResult result = mockMvc.perform(get("/"))
                 .andDo(print())
                 .andReturn();
 
@@ -44,7 +44,7 @@ public class PlayerController_When_new_player_is_created {
                 .andExpect(status().is3xxRedirection());
 
         //Assert
-        mockMvc.perform(get("/player-list"))
+        mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(newPlayer)));

@@ -9,6 +9,12 @@
 </head>
 <body>
 <div class="container-fluid">
+    <p th:text="'Hallo, ' + ${customer} + '!'"></p>
+    <form action="/player" method="post">
+        <input title="Spielername:" type="text" name="Spielername" autofocus>
+        <button type="submit">Spieler Erstellen</button>
+    </form>
+    <div th:text="${playerCreateMessage}"></div>
     <div class="row">
         <div class="col-12">
             <h2>Spielerliste:</h2>
@@ -39,9 +45,6 @@
             </div>
         </div>
         <hr/>
-    </form>
-    <form action="/" method="get">
-        <button type="submit" class="btn btn-secondary">Zurück zur Hauptseite...</button>
     </form>
 </div>
 </body>

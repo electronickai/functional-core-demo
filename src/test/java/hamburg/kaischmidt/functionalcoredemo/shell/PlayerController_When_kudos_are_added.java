@@ -37,7 +37,7 @@ public class PlayerController_When_kudos_are_added {
         mockMvc.perform(post("/player/addKudos").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=Player").accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Assert
-        String result = mockMvc.perform(get("/player-list")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String result = mockMvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         assertThat(result).contains(PLAYER_STRING);
         assertThat(result).contains(KUDOS_STRING);
