@@ -9,37 +9,39 @@
 </head>
 <body>
 <div class="container-fluid">
-    <p th:text="'Hallo, ' + ${customer} + '!'"></p>
-    <form action="/player" method="post">
-        <input title="Spielername:" type="text" name="Spielername" autofocus>
-        <button type="submit">Spieler Erstellen</button>
+    <div class="navbar navbar-dark bg-dark">
+        <div class="navbar-brand" th:text="'Hallo, ' + ${customer} + '!'"></div>
+    </div>
+    <br/>
+    <form class="row align-items-center" action="/player" method="post">
+        <input title="Spielername:" type="text" name="Spielername" autofocus class="form-control col-3 ml-3 mr-3">
+        <button type="submit" class="col-1 btn btn-primary">Spieler erstellen</button>
+        <div class="col-4 text-info" th:text="${playerCreateMessage}"></div>
     </form>
-    <div th:text="${playerCreateMessage}"></div>
+    <hr/>
     <div class="row">
         <div class="col-12">
             <h2>Spielerliste:</h2>
         </div>
     </div>
-    <hr/>
     <form th:each="player: ${players}">
         <div class="row align-items-center">
-            <label class="col-4">Spieler
+            <label class="col-3">Spieler
                 <input title="Name:" th:value="${player.getPlayerName()}" name="Spielername" readonly
                        class="form-control"/>
             </label>
-            <label class="col-2">Status
+            <label class="col-1">Status
                 <input title="Premium:" th:value="${player.getPremiumStatus()}" readonly class="form-control"/>
             </label>
             <div class="col-2">
                 <button type="submit" formaction="/player/togglePremium" formmethod="post"
-                        th:text="${player.getPremiumToggleButtonText()}" class="btn btn-primary"></button>
+                        th:text="${player.getPremiumToggleButtonText()}" class="btn btn-outline-primary mt-3"></button>
             </div>
             <label class="col-2">Kudos
                 <input title="Kudos:" th:value="${player.getKudos()}" readonly class="form-control"/>
             </label>
             <div class="col-2">
-                <button type="submit" formaction="/player/addKudos" formmethod="post"
-                        th:disabled="${!player.isAddKudosEnabled()}" class="btn btn-primary">
+                <button type="submit" formaction="/player/addKudos" formmethod="post" th:disabled="${!player.isAddKudosEnabled()}" class="btn btn-outline-primary mt-3">
                     Kudos vergeben
                 </button>
             </div>
