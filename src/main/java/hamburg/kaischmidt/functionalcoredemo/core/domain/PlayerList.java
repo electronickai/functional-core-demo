@@ -1,8 +1,10 @@
 package hamburg.kaischmidt.functionalcoredemo.core.domain;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class PlayerList {
 
@@ -23,9 +25,7 @@ public final class PlayerList {
     }
 
     public List<Player> getPlayersSortedByName() {
-        List<Player> players = new ArrayList<>(getPlayers());
-        Collections.sort(players);
-        return players;
+        return players.stream().sorted().collect(Collectors.toUnmodifiableList());
     }
 
     public String getLastOperationMessage() {
@@ -33,27 +33,21 @@ public final class PlayerList {
     }
 
     public PlayerList addNewPlayer(String newPlayerName) {
-        if (playerExists(newPlayerName)) {
-            return new PlayerList(players, String.format("Spieler %s existiert bereits", newPlayerName));
-        }
-        Set<Player> newPlayers = addToCurrentList(Player.createNewPlayer(newPlayerName));
-        return new PlayerList(newPlayers, String.format("Spieler %s erstellt", newPlayerName));
+        return playerExists(newPlayerName)
+                ? new PlayerList(players, String.format("Spieler %s existiert bereits", newPlayerName))
+                : new PlayerList(addToCurrentList(Player.createNewPlayer(newPlayerName)), String.format("Spieler %s erstellt", newPlayerName));
     }
 
     public PlayerList addKudosToPlayer(String playerName) {
-        if (!playerExists(playerName)) {
-            return new PlayerList(players, String.format("Keine Kudos hinzugefügt. Spieler %s ist nicht vorhanden", playerName));
-        }
-        Set<Player> newPlayers = applyFunctionToPlayer(playerName, Player::addKudos);
-        return new PlayerList(newPlayers, String.format("Kudos zu Spieler %s hinzugefügt", playerName));
+        return !playerExists(playerName)
+                ? new PlayerList(players, String.format("Keine Kudos hinzugefügt. Spieler %s ist nicht vorhanden", playerName))
+                : new PlayerList(applyFunctionToPlayer(playerName, Player::addKudos), String.format("Kudos zu Spieler %s hinzugefügt", playerName));
     }
 
     public PlayerList togglePremium(String playerName) {
-        if (!playerExists(playerName)) {
-            return new PlayerList(players, String.format("Premiumstatus unverändert. Spieler %s ist nicht vorhanden", playerName));
-        }
-        Set<Player> newPlayers = applyFunctionToPlayer(playerName, Player::togglePremium);
-        return new PlayerList(newPlayers, String.format("Premiumstatus für Spieler %s geändert", playerName));
+        return !playerExists(playerName)
+                ? new PlayerList(players, String.format("Premiumstatus unverändert. Spieler %s ist nicht vorhanden", playerName))
+                : new PlayerList(applyFunctionToPlayer(playerName, Player::togglePremium), String.format("Premiumstatus für Spieler %s geändert", playerName));
     }
 
     private boolean playerExists(String name) {
@@ -67,8 +61,6 @@ public final class PlayerList {
     }
 
     private Set<Player> addToCurrentList(Player newPlayer) {
-        Set<Player> modifiableSet = new HashSet<>(players);
-        modifiableSet.add(newPlayer);
-        return Collections.unmodifiableSet(modifiableSet);
+        return Stream.concat(players.stream(), Stream.of(newPlayer)).collect(Collectors.toUnmodifiableSet());
     }
 }
