@@ -17,29 +17,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PlayerController_When_kudos_are_added {
+public class TalkController_When_ratings_are_added {
 
-    private static final String PLAYER_STRING = "title=\"Name:\" value=\"Player\"";
-    private static final String KUDOS_STRING = "title=\"Kudos:\" value=\"2\"";
+    private static final String TALK_STRING = "title=\"Name:\" value=\"Talk\"";
+    private static final String RATING_STRING = "title=\"RateTop:\" value=\"2\"";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void Then_kudos_are_displayed() throws Exception {
+    public void Then_ratings_are_displayed() throws Exception {
 
         //Arrange
-        mockMvc.perform(post("/player").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=Player").accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Act
-        mockMvc.perform(post("/player/togglePremium").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=Player").accept(APPLICATION_FORM_URLENCODED_VALUE));
-        mockMvc.perform(post("/player/addKudos").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=Player").accept(APPLICATION_FORM_URLENCODED_VALUE));
-        mockMvc.perform(post("/player/addKudos").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=Player").accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk/toggleStatus").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk/addFeedback/TOP").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk/addFeedback/TOP").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Assert
         String result = mockMvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
-        assertThat(result).contains(PLAYER_STRING);
-        assertThat(result).contains(KUDOS_STRING);
+        assertThat(result).contains(TALK_STRING);
+        assertThat(result).contains(RATING_STRING);
     }
 }

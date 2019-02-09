@@ -24,7 +24,7 @@ Gary Bernhardt combines some characteristics of object oriented programming with
 
 `FauxO` means that a class may contain both, data and code. However, compared to object orientation, all parameters into the code and the return values have to be immutable.
 
-An example of `FauxO` within this project is the class `PlayerList`. It contains state (e.g. a list of players) and code (it is possible to add a new player). However the `PlayerList` that is returned is a new instance - The PlayerList itself is immutable.
+An example of `FauxO` within this project is the class `Agenda`. It contains state (e.g. a list of talks) and code (it is possible to add a new talk). However the `Agenda` that is returned is a new instance - The Agenda itself is immutable.
 
 ### Readability of "Core Code"
 
@@ -49,7 +49,7 @@ An application without side effects wouldn't make much sense. There is some HTTP
 Making decisions is usually part of the `core` code. The `shell` is "just" the interface to components that cause side effects. Therefore there should be really rare cases for loops and conditionals within the `shell` code. 
 
 In my first attempts it was hard to find ways that would avoid conditionals in the `shell` code. I really had to rethink my coding styles. I was tempted to return some kind of intermediate results to the `shell`.
-An example is the information whether the player creation was successful or not (The class `PlayerList` should initially return a boolean value of `true` or `false`). The `shell` would have to decide which message shall be shown depending on the outcome. However, this can be perfectly done within the `core`. The `core` defines the message for the user directly as a result of the user creation operation. This is fine as the resulting message can be seen as `core` (and even domain) logic. The `shell` just knows where to display the result message on the UI. 
+An example is the information whether the talk creation was successful or not (The class `Agenda` should initially return a boolean value of `true` or `false`). The `shell` would have to decide which message shall be shown depending on the outcome. However, this can be perfectly done within the `core`. The `core` defines the message for the user directly as a result of the user creation operation. This is fine as the resulting message can be seen as `core` (and even domain) logic. The `shell` just knows where to display the result message on the UI. 
 
 Therefore, you should be aware of solutions that avoid decisions in the `shell` code.  
 
@@ -102,14 +102,26 @@ Especially recommendable are the references by Gary Bernhardt:
 
 ### Appropriateness of Java
 
-Although Java contains some immutable objects (e.g. String, LocalDateTime) it is not defined with immutability in mind. In Java it may be cumbersome to declare private constructors or copy constructors with each data holding class. An additional example is working with immutable collections
+Although Java contains some immutable objects (e.g. String, LocalDateTime) it is not defined with immutability in mind. In Java it may be cumbersome to declare private constructors or copy constructors with each data holding class. An additional example is working with immutable collections (thankfully this changed with Java 10):
 
 #### Java
 
+##### before Version 10
+
 ```java
-        Set<Player> modifiableSet = new HashSet<>(players);
-        modifiableSet.add(new Player(newPlayerName));
+        Set<Talk> modifiableSet = new HashSet<>(talks);
+        modifiableSet.add(new Talk(topic));
         return Collections.unmodifiableSet(modifiableSet);
+```
+
+##### since Version 10
+
+Java 10 brings Stream Collectors for unmodifiable data types:
+
+```java
+        return Stream
+                    .concat(talks.stream(), Stream.of(newTalk))
+                    .collect(Collectors.toUnmodifiableSet());
 ```
 
 #### Java with Guava
@@ -117,20 +129,18 @@ Although Java contains some immutable objects (e.g. String, LocalDateTime) it is
 Some support is given by Guava. But still it isn't quite handy:
 
 ```java
-Set<Player> newSet = new ImmutableSet.Builder<Player>()
-                                .addAll(players)
-                                .add(newPlayerName)
+Set<Talk> newSet = new ImmutableSet.Builder<Talk>()
+                                .addAll(talks)
+                                .add(newTopic)
                                 .build();
 ```
 
 Quite the same functionality is also provided by Apache Commons
-
-#### Java with Vavr
 
 #### Kotlin
 
 Kotlin would automatically return a new list just by using the `+` operator:
 
 ```kotlin
-return players + newPlayerName
+return talks + newTalk
 ```

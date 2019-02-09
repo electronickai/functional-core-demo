@@ -1,6 +1,6 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.core.domain.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.domain.Agenda;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PlayerController_When_userlist_is_shown {
+public class TalkController_When_userlist_is_shown {
 
     private static final String NAME_FIELD = "input title=\"Name:\"";
-    private static final String PLAYER1 = "Player";
-    private static final String PLAYER2 = "Player2";
+    private static final String TALK1 = "Talk1";
+    private static final String TALK2 = "Talk2";
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,7 +46,7 @@ public class PlayerController_When_userlist_is_shown {
     public void If_create_message_is_passed_Then_it_is_shown() throws Exception {
         final String createMessage = "Spieler Testuser erstellt";
 
-        mockMvc.perform(get("/?playerCreateMessage=" + createMessage)).andDo(print())
+        mockMvc.perform(get("/?topicCreateMessage=" + createMessage)).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(createMessage)));
     }
@@ -55,7 +55,7 @@ public class PlayerController_When_userlist_is_shown {
     public void If_no_user_exist_Then_no_user_is_displayed() throws Exception {
 
         //Arrange
-        applicationState.setPlayerList(PlayerList.initializePlayerList());
+        applicationState.setAgenda(Agenda.initializeAgenda());
 
         //Act
         String responseBody = mockMvc.perform(get("/"))
@@ -70,9 +70,9 @@ public class PlayerController_When_userlist_is_shown {
     public void Then_multiple_Users_can_be_displayed() throws Exception {
 
         //Arrange
-        applicationState.setPlayerList(PlayerList.initializePlayerList());
-        mockMvc.perform(post("/player").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + PLAYER1).accept(APPLICATION_FORM_URLENCODED_VALUE));
-        mockMvc.perform(post("/player").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + PLAYER2).accept(APPLICATION_FORM_URLENCODED_VALUE));
+        applicationState.setAgenda(Agenda.initializeAgenda());
+        mockMvc.perform(post("/talk").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=" + TALK1).accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=" + TALK2).accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Act
         String responseBody = mockMvc.perform(get("/"))
@@ -80,8 +80,8 @@ public class PlayerController_When_userlist_is_shown {
                 .andReturn().getResponse().getContentAsString();
 
         //Assert
-        assertThat(responseBody.contains(PLAYER1)).isTrue();
-        assertThat(responseBody.contains(PLAYER2)).isTrue();
+        assertThat(responseBody.contains(TALK1)).isTrue();
+        assertThat(responseBody.contains(TALK2)).isTrue();
         assertThat(Arrays.stream(responseBody.split(NAME_FIELD)).count()).isEqualTo(2 + 1);
     }
 }

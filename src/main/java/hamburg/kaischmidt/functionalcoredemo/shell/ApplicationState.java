@@ -1,18 +1,18 @@
 package hamburg.kaischmidt.functionalcoredemo.shell;
 
-import hamburg.kaischmidt.functionalcoredemo.core.domain.PlayerList;
+import hamburg.kaischmidt.functionalcoredemo.core.domain.Agenda;
 import org.springframework.stereotype.Component;
 
 @Component
 class ApplicationState {
 
-    private PlayerList playerList = PlayerList.initializePlayerList();
+    private Agenda agenda = Agenda.initializeAgenda();
 
-    PlayerList getPlayerList() {
-        return playerList;
+    Agenda getAgenda() {
+        return agenda;
     }
 
-    void setPlayerList(PlayerList playerList) {
-        this.playerList = playerList;
+    void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 }

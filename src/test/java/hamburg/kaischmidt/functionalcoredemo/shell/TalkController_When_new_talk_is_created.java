@@ -21,25 +21,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PlayerController_When_new_player_is_created {
+public class TalkController_When_new_talk_is_created {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void Then_call_is_redirected_And_player_is_shown_in_list() throws Exception {
+    public void Then_call_is_redirected_And_talk_is_shown_in_list() throws Exception {
 
         //Arrange
-        String newPlayer = "TestUser";
+        String newTalk = "TestTalk";
 
         MvcResult result = mockMvc.perform(get("/"))
                 .andDo(print())
                 .andReturn();
 
-        assertThat(result.getResponse().getContentAsString().contains(newPlayer)).isFalse();
+        assertThat(result.getResponse().getContentAsString().contains(newTalk)).isFalse();
 
         //Act
-        mockMvc.perform(post("/player").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Spielername=" + newPlayer).accept(APPLICATION_FORM_URLENCODED_VALUE))
+        mockMvc.perform(post("/talk").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=" + newTalk).accept(APPLICATION_FORM_URLENCODED_VALUE))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
 
@@ -47,7 +47,7 @@ public class PlayerController_When_new_player_is_created {
         mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(newPlayer)));
+                .andExpect(content().string(containsString(newTalk)));
     }
 
 }
