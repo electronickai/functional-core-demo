@@ -16,8 +16,8 @@ import java.util.List;
 @Controller
 public class TalkController {
 
-    @Value("${demo.customer}")
-    private String CUSTOMER = "";
+    @Value("${demo.title}")
+    private String TITLE = "";
 
     private ApplicationState applicationState;
 
@@ -28,7 +28,7 @@ public class TalkController {
     @GetMapping("/")
     public String showAgenda(@ModelAttribute("topicCreateMessage") String topicCreatedMessage, Model model) {
         List<Talk> talks = getAgenda().getTalksSortedByName();
-        model.addAttribute("customer", CUSTOMER);
+        model.addAttribute("title", TITLE);
         model.addAttribute("talks", TalkRepresentation.listFrom(talks));
         return "talk-list";
     }

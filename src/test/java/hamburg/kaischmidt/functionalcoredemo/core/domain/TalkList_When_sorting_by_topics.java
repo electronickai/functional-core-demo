@@ -25,7 +25,7 @@ public class TalkList_When_sorting_by_topics {
 
         //Assert
         for (int i = 1; i < sortedTalks.size(); i++) {
-            assertThat(sortedTalks.get(i).getName()).isGreaterThan(sortedTalks.get(i - 1).getName());
+            assertThat(sortedTalks.get(i).getTopic()).isGreaterThan(sortedTalks.get(i - 1).getTopic());
         }
     }
 }

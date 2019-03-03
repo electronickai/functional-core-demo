@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public final class Talk implements Comparable<Talk> {
 
-    private final String name;
+    private final String topic;
     private final int top;
     private final int okay;
     private final int flop;
     private final boolean canBeRated;
 
-    private Talk(String name, int top, int okay, int flop, boolean canBeRated) {
-        this.name = name;
+    private Talk(String topic, int top, int okay, int flop, boolean canBeRated) {
+        this.topic = topic;
         this.top = top;
         this.okay = okay;
         this.flop = flop;
@@ -22,8 +22,8 @@ public final class Talk implements Comparable<Talk> {
         return new Talk(name, 0, 0, 0, false);
     }
 
-    public String getName() {
-        return name;
+    public String getTopic() {
+        return topic;
     }
 
     public boolean canBeRated() {
@@ -46,30 +46,30 @@ public final class Talk implements Comparable<Talk> {
         if (!canBeRated) {
             return this;
         }
-        return new Talk(name, top + 1, okay, flop, canBeRated);
+        return new Talk(topic, top + 1, okay, flop, canBeRated);
     }
 
     public Talk addOkay() {
         if (!canBeRated) {
             return this;
         }
-        return new Talk(name, top, okay + 1, flop, canBeRated);
+        return new Talk(topic, top, okay + 1, flop, canBeRated);
     }
 
     public Talk addFlop() {
         if (!canBeRated) {
             return this;
         }
-        return new Talk(name, top, okay, flop + 1, canBeRated);
+        return new Talk(topic, top, okay, flop + 1, canBeRated);
     }
 
     public Talk toggleStatus() {
-        return new Talk(name, top, okay, flop, !canBeRated);
+        return new Talk(topic, top, okay, flop, !canBeRated);
     }
 
     @Override
     public String toString() {
-        return name;
+        return topic;
     }
 
     @Override
@@ -77,16 +77,16 @@ public final class Talk implements Comparable<Talk> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Talk talk = (Talk) o;
-        return name.equals(talk.name);
+        return topic.equals(talk.topic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(topic);
     }
 
     @Override
     public int compareTo(Talk other) {
-        return this.name.compareTo(other.name);
+        return this.topic.compareTo(other.topic);
     }
 }

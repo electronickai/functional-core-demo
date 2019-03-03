@@ -26,9 +26,9 @@ public class TalkList_When_adding_ratings {
 
         //Assert
         assertThat(agenda.getTalks().size()).isEqualTo(3);
-        assertThat(agenda.getTalks().stream().filter(p -> p.getName().equals(FIRST_TALK)).map(Talk::getTop)).containsExactly(1);
-        assertThat(agenda.getTalks().stream().filter(p -> p.getName().equals(SECOND_TALK)).map(Talk::getOkay)).containsExactly(2);
-        assertThat(agenda.getTalks().stream().filter(p -> p.getName().equals(THIRD_TALK)).map(Talk::getFlop)).containsExactly(3);
+        assertThat(agenda.getTalks().stream().filter(t -> t.getTopic().equals(FIRST_TALK)).map(Talk::getTop)).containsExactly(1);
+        assertThat(agenda.getTalks().stream().filter(t -> t.getTopic().equals(SECOND_TALK)).map(Talk::getOkay)).containsExactly(2);
+        assertThat(agenda.getTalks().stream().filter(t -> t.getTopic().equals(THIRD_TALK)).map(Talk::getFlop)).containsExactly(3);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TalkList_When_adding_ratings {
 
         //Assert
         assertThat(agenda.getTalks().size()).isEqualTo(1);
-        assertThat(agenda.getTalks().iterator().next().getName()).isEqualTo("firstTalk");
+        assertThat(agenda.getTalks().iterator().next().getTopic()).isEqualTo("firstTalk");
         assertThat(agenda.getTalks().iterator().next().getTop()).isEqualTo(0);
     }
 
@@ -57,7 +57,7 @@ public class TalkList_When_adding_ratings {
 
         //Assert
         assertThat(agenda.getTalks().size()).isEqualTo(1);
-        assertThat(agenda.getTalks().iterator().next().getName()).isEqualTo("firstTalk");
+        assertThat(agenda.getTalks().iterator().next().getTopic()).isEqualTo("firstTalk");
         assertThat(agenda.getTalks().iterator().next().getTop()).isEqualTo(0);
         assertThat(agenda.getLastOperationMessage()).isEqualTo("Keine Bewertung hinzugefügt. Vortrag " + SECOND_TALK + " ist nicht vorhanden");
     }

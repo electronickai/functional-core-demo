@@ -39,7 +39,7 @@ public class TalkController_When_userlist_is_shown {
     public void Then_welcome_page_is_shown() throws Exception {
         mockMvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hallo, ")));
+                .andExpect(content().string(containsString("Vortrag erstellen")));
     }
 
     @Test

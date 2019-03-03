@@ -30,9 +30,9 @@ public class TalkController_When_ratings_are_added {
 
         //Arrange
         mockMvc.perform(post("/talk").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
+        mockMvc.perform(post("/talk/toggleStatus").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
 
         //Act
-        mockMvc.perform(post("/talk/toggleStatus").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
         mockMvc.perform(post("/talk/addFeedback/TOP").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
         mockMvc.perform(post("/talk/addFeedback/TOP").contentType(APPLICATION_FORM_URLENCODED_VALUE).content("Vortragsthema=Talk").accept(APPLICATION_FORM_URLENCODED_VALUE));
 

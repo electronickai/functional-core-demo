@@ -3,14 +3,14 @@
 <head>
     <title th:text="'User List'"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta topic="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body style="background-color: honeydew">
 <div class="container-fluid">
     <div class="navbar navbar-dark bg-dark">
-        <div class="navbar-brand" th:text="'Hallo, ' + ${customer} + '!'"></div>
+        <div class="navbar-brand" th:text="${title}"></div>
     </div>
     <br/>
     <form class="row align-items-center" action="/talk" method="post">
@@ -42,8 +42,7 @@
                 <input title="RateTop:" th:value="${talk.getTop()}" readonly class="form-control"/>
             </label>
             <div class="col-1">
-                <button type="submit" formaction="/talk/addFeedback/TOP" formmethod="post"
-                        th:disabled="${!talk.isRateEnabled()}" class="btn btn-success mt-3">
+                <button type="submit" formaction="/talk/addFeedback/TOP" formmethod="post" th:disabled="${!talk.isRateEnabled()}" class="btn btn-success mt-3">
                     Top
                 </button>
             </div>
@@ -51,8 +50,7 @@
                 <input title="RateOkay:" th:value="${talk.getOkay()}" readonly class="form-control"/>
             </label>
             <div class="col-1">
-                <button type="submit" formaction="/talk/addFeedback/OKAY" formmethod="post"
-                        th:disabled="${!talk.isRateEnabled()}" class="btn btn-warning mt-3">
+                <button type="submit" formaction="/talk/addFeedback/OKAY" formmethod="post" th:disabled="${!talk.isRateEnabled()}" class="btn btn-warning mt-3">
                     Okay
                 </button>
             </div>
@@ -60,8 +58,7 @@
                 <input title="RateFlop:" th:value="${talk.getFlop()}" readonly class="form-control"/>
             </label>
             <div class="col-1">
-                <button type="submit" formaction="/talk/addFeedback/FLOP" formmethod="post"
-                        th:disabled="${!talk.isRateEnabled()}" class="btn btn-danger mt-3">
+                <button type="submit" formaction="/talk/addFeedback/FLOP" formmethod="post" th:disabled="${!talk.isRateEnabled()}" class="btn btn-danger mt-3">
                     Flop
                 </button>
             </div>

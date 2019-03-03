@@ -21,7 +21,7 @@ public class Agenda_When_adding_new_talk {
         //Assert
         assertThat(agenda.getLastOperationMessage()).isEqualTo(String.format("Vortrag %s erstellt", userName));
         assertThat(agenda.getTalks().size()).isEqualTo(1);
-        assertThat(agenda.getTalks().iterator().next().getName()).isEqualTo(userName);
+        assertThat(agenda.getTalks().iterator().next().getTopic()).isEqualTo(userName);
 
     }
 
@@ -41,7 +41,7 @@ public class Agenda_When_adding_new_talk {
         //Assert
         assertThat(agenda.getLastOperationMessage()).isEqualTo(String.format("Vortrag %s existiert bereits", userName));
         assertThat(agenda.getTalks().size()).isEqualTo(1);
-        assertThat(agenda.getTalks().iterator().next().getName()).isEqualTo(userName);
+        assertThat(agenda.getTalks().iterator().next().getTopic()).isEqualTo(userName);
 
     }
 

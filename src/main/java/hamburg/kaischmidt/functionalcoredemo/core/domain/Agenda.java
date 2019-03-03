@@ -50,13 +50,13 @@ public final class Agenda {
                 : new Agenda(applyFunctionToTalk(topic, Talk::toggleStatus), String.format("Status für Spieler %s geändert", topic));
     }
 
-    private boolean talkExists(String name) {
-        return talks.stream().anyMatch(t -> t.getName().equals(name));
+    private boolean talkExists(String topic) {
+        return talks.stream().anyMatch(t -> t.getTopic().equals(topic));
     }
 
     private Set<Talk> applyFunctionToTalk(String topic, Function<Talk, Talk> function) {
         return talks.stream()
-                .map(talk -> talk.getName().equals(topic) ? function.apply(talk) : talk)
+                .map(talk -> talk.getTopic().equals(topic) ? function.apply(talk) : talk)
                 .collect(Collectors.toUnmodifiableSet());
     }
 

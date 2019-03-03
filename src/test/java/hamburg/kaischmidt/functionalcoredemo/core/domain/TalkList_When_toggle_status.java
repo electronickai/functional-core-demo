@@ -22,8 +22,8 @@ public class TalkList_When_toggle_status {
         agenda = agenda.toggleStatus(TALK_1).toggleStatus(TALK_2);
 
         //Assert
-        assertThat(agenda.getTalks().stream().filter(p -> p.getName().equals(TALK_1)).noneMatch(Talk::canBeRated)).isTrue();
-        assertThat(agenda.getTalks().stream().filter(p -> p.getName().equals(TALK_2)).allMatch(Talk::canBeRated)).isTrue();
+        assertThat(agenda.getTalks().stream().filter(p -> p.getTopic().equals(TALK_1)).noneMatch(Talk::canBeRated)).isTrue();
+        assertThat(agenda.getTalks().stream().filter(p -> p.getTopic().equals(TALK_2)).allMatch(Talk::canBeRated)).isTrue();
     }
 }
 

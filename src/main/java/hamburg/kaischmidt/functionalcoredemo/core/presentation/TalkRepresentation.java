@@ -60,7 +60,7 @@ public class TalkRepresentation {
 
     private static TalkRepresentation mapFields(Talk talk) {
         var representation = new TalkRepresentation();
-        representation.setTopic(talk.getName());
+        representation.setTopic(talk.getTopic());
         representation.setTop(talk.getTop());
         representation.setOkay(talk.getOkay());
         representation.setFlop(talk.getFlop());
