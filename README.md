@@ -6,6 +6,8 @@ This style populated by Gary Bernhardt is quite good known in the ruby community
 
 The idea of this style is to separate code that is side effect free from code that has side effects. Gary Bernhardt states that functional code contains the `Paths` whereas the `imperative shell` contains the `Dependencies`
 
+For a more detailed description (in German language) you can also check the [article](article_java_aktuell_05_2019.pdf) I wrote together with my former colleague Thomas Ruhroth.
+
 ## Functional Core
 
 The `functional core` is made up of logic that follows a functional programming paradigm. Especially the concept of `pure functions`.
